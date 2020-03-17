@@ -33,7 +33,7 @@ pub fn main() {
     //let blockchain_info= komodo::blockchain::get_blockchain_info(someUser);
 
     //getaddressbalance
-    
+
     komodo::wallet::send_to_address(
         someUser,
         "RKL5sZabVmngF5ueG8hBD1zLFauTqnHFuk".to_string(),
@@ -42,7 +42,4 @@ pub fn main() {
         Some("alfonso".to_string()),
         Some(true),
     );
-    
-
-  
 }

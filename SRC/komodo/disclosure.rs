@@ -91,5 +91,4 @@ pub fn z_validate_payment_disclosure(
     ));
 
     komodorpcutil::request(someUser.clone(), data)
-    
 }

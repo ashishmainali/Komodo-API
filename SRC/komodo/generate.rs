@@ -31,7 +31,6 @@ pub fn generate(someUser: komodorpcutil::KomodoRPC, numblocks: u32) -> Result<()
     ));
 
     komodorpcutil::request(someUser.clone(), data)
-
 }
 /**
   * getgenerate
@@ -50,9 +49,8 @@ Name	Type	Description
 true/false	(boolean)	indicates whether the server is set to generate coins
   */
 pub fn get_generate(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
-    let params = String::from("[]") ;
+    let params = String::from("[]");
 
-    
     let method_name: String = String::from("getgenerate");
     let method_body: String = String::from(params);
     let data: String = String::from(komodorpcutil::generate_body(
@@ -61,7 +59,6 @@ pub fn get_generate(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::E
         method_body,
     ));
     komodorpcutil::request(someUser.clone(), data)
-
 }
 
 /**
@@ -102,19 +99,19 @@ pub fn set_generate(
             + &String::from("]");
     }
 
-
     let method_name: String = String::from("setgenerate");
     let data: String = String::from(komodorpcutil::generate_body(
         SomeUser.clone(),
         method_name,
         method_body,
     ));
-   komodorpcutil::request(SomeUser.clone(), data)
+    komodorpcutil::request(SomeUser.clone(), data)
 }
 
-
-
-pub fn set_staking_split(someUser: komodorpcutil::KomodoRPC, split_percentage: f64) -> Result<(), reqwest::Error> {
+pub fn set_staking_split(
+    someUser: komodorpcutil::KomodoRPC,
+    split_percentage: f64,
+) -> Result<(), reqwest::Error> {
     ///THE DOCUMENTATION IN DOCS.KOMODOPLATFORM.COM IS INCOMPLETE
     let params = String::from("[") + &split_percentage.to_string() + "]";
 
@@ -127,6 +124,4 @@ pub fn set_staking_split(someUser: komodorpcutil::KomodoRPC, split_percentage: f
     ));
 
     komodorpcutil::request(someUser.clone(), data)
-
 }
-

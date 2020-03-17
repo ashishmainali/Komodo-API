@@ -263,7 +263,7 @@ pub fn get_receive_by_address(
             + &temp_min_conf
             + &String::from("]");
     }
-    
+
     let method_name: String = String::from("getreceivedbyaddress");
     let data: String = String::from(komodorpcutil::generate_body(
         SomeUser.clone(),
@@ -481,7 +481,7 @@ pub fn import_wallet(
         method_name,
         method_body,
     ));
-    komodorpcutil::request(SomeUser.clone(), data)
+    komodorpcutil::request(someUser.clone(), data)
 }
 
 /// keypoolrefill ( newsize ).
@@ -727,7 +727,7 @@ pub fn list_unspent(
 
     let temp_minconf = minconf.unwrap_or(1);
     let temp_maxconf = maxconf.unwrap_or(9999999);
-    
+
     let method_body: String = String::from("[\"")
         + &temp_minconf.to_string()
         + &String::from(", ")
@@ -743,10 +743,6 @@ pub fn list_unspent(
     ));
     komodorpcutil::request(some_user.clone(), data)
 }
-
-
-
-
 
 //  TODO - unfinished
 
@@ -820,7 +816,6 @@ Name	Type	Description
 "transaction_id"	(string)	the transaction id for the send; only 1 transaction is created regardless of the number of addresses
  */
 
-
 /// * sendmany "account" { "address": amount, ... } ( minconf "comment" [ "address", ... ] ).
 /// * The sendmany method can send multiple transactions at once. Amounts are double-precision floating point numbers.
 /// # Arguments
@@ -844,7 +839,7 @@ pub fn send_many(
 ) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("sendmany");
     let temp_minconf = minconf.unwrap_or(1);
-    let temp_comment: String = comment.unwrap_or("");
+    let temp_comment: String = comment.unwrap_or("".to_string());
     let temp_subtract_fee_from_amount: String = subtract_fee_from_amount.unwrap_or("".to_string());
     // dont use account?
     let method_body: String = String::from("[\"")
@@ -887,28 +882,38 @@ pub fn send_to_address(
     subtract_fee_from_amount: Option<bool>,
 ) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("sendtoaddress");
-    let temp_comment: String = comment.unwrap_or("");
-    let temp_comment_to: String = comment_to.unwrap_or("");
+    let temp_comment: String = comment.unwrap_or("".to_string());
+    let temp_comment_to: String = comment_to.unwrap_or("".to_string());
     let temp_subtract_fee_from_amount = subtract_fee_from_amount.unwrap_or(false);
 
-    let method_body: String = String::from("[\"")
+    let mut method_body: String = String::from("[\"")
         + &komodo_address.to_string()
         + &String::from("\",")
-        + &amount.to_string()
-        + &String::from(",\"")
-        + &temp_comment.to_string()
-        + &String::from("\",")
-        + &temp_subtract_fee_from_amount.to_string()
-        + &String::from("]");
+        + &amount.to_string();
 
+    if (!temp_comment.is_empty()) {
+        let temp_string: String = String::from(",\"") + &temp_comment + &String::from("\"");
+        method_body.push_str(&temp_string);
+    }
+
+    if (!temp_comment_to.is_empty()) {
+        let temp_string: String = String::from(",\"") + &temp_comment_to + &String::from("\"");
+        method_body.push_str(&temp_string);
+    }
+    if (temp_subtract_fee_from_amount) {
+        method_body.push_str(&String::from(", true"));
+    }
+
+    method_body.push_str(&String::from("]"));
+    println!("{}", method_body);
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),
         method_name,
         method_body,
     ));
-    komodorpcutil::request(some_user.clone(), data)
+    let result = komodorpcutil::request(some_user.clone(), data);
+    return result;
 }
-
 /// * setpubkey pubkey.
 /// * The setpubkey method sets the indicated pubkey. This method can be used in place of the pubkey launch parameter, when necessary.
 /// * Visit the section pubkey to understand when it is essential to set a pubkey and the consequences of setting it.
@@ -1025,11 +1030,13 @@ pub fn wallet_pass_phrase(
 ) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("walletpassphrase");
 
-    let method_body: String = String::from("[\"")
-        + &pass_phrase.to_string()
-        + &String::from("\",")
-        + &timeout.to_string()
-        + &String::from("]");
+    let mut method_body: String =
+        String::from("[\"") + &pass_phrase.to_string() + &String::from("\"");
+
+    if let Some(x) = timeout {
+        method_body = method_body + &String::from(",") + &x.to_string();
+    }
+    method_body = method_body + &String::from("]");
 
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),
@@ -1155,9 +1162,9 @@ pub fn z_get_balance(
     minconf: Option<u32>,
 ) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("z_getbalance");
-    let temp_minconf: String = minconf.unwrap_or(1);
+    let temp_minconf: String = minconf.unwrap_or(1).to_string();
     let method_body: String = String::from("[\"")
-        + &file_name.to_string()
+        + &address.to_string()
         + &String::from("\",")
         + &temp_minconf.to_string()
         + &String::from("]");
@@ -1414,7 +1421,7 @@ pub fn z_list_addresses(
     let method_name: String = String::from("z_listaddresses");
     let temp_include_watch_only = include_watch_only.unwrap_or(false);
     let method_body: String =
-        String::from("[") + &include_watch_only.to_string() + &String::from("]");
+        String::from("[") + &temp_include_watch_only.to_string() + &String::from("]");
 
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),
@@ -1438,9 +1445,8 @@ pub fn z_list_operation_ids(
     status: Option<String>,
 ) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("z_listoperationids");
-    let temp_include_watch_only = include_watch_only.unwrap_or("".to_string());
-    let method_body: String =
-        String::from("[") + &include_watch_only.to_string() + &String::from("]");
+    let temp_status = status.unwrap_or("".to_string());
+    let method_body: String = String::from("[") + &temp_status.to_string() + &String::from("]");
 
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),
@@ -1583,9 +1589,7 @@ Name 	Type 	Description
 "opid" 	(string) 	an operationid to pass to z_getoperationstatus to get the result of the operation
 */
 
-
-
-// - Incomplete documentation, missing complete function 
+// - Incomplete documentation, missing complete function
 //      (https://docs.komodoplatform.com/basic-docs/smart-chains/smart-chain-api/wallet.html#z-sendmany)
 // - unfinished function: amounts array arguments, memo argument
 /// * z_sendmany "fromaddress" [ { "address": ..., "amount": ... }, ... ] ( minconf ) ( fee )
@@ -1617,7 +1621,7 @@ pub fn z_send_many(
     let temp_memo: String = memo.unwrap_or("");
     let temp_minconf: u32 = minconf.unwrap_or(1);
     let temp_fee: f32 = fee.unwrap_or(.0001);
-    
+
     method_body = String::from("[\"")
     + &from_address
     + &String::from("\", ")
@@ -1631,7 +1635,7 @@ pub fn z_send_many(
     + &String::from(",")
     + &temp_fee.to_string()
     + &String::from("]");
-    
+
     let data: String = String::from(komodorpcutil::generate_body(
             SomeUser.clone(),
             method_name,

@@ -21,11 +21,8 @@ pub fn add_node(
     node: String,
     command: String,
 ) -> Result<(), reqwest::Error> {
-    let method_body = String::from("[\"") 
-    + &node 
-    + &String::from("\", \"") 
-    + &command 
-    + &String::from("\"]"); 
+    let method_body =
+        String::from("[\"") + &node + &String::from("\", \"") + &command + &String::from("\"]");
     let method_name: String = String::from("addnode");
     let data: String = String::from(komodorpcutil::generate_body(
         someUser.clone(),
@@ -112,9 +109,7 @@ pub fn get_added_node_info(
     let method_body: String;
     let temp_node: String = node.unwrap_or("".to_string()); // default -1///TO DO
     if (temp_node.is_empty()) {
-        method_body = String::from("[") 
-        + &dns.to_string() 
-        + &String::from("]");
+        method_body = String::from("[") + &dns.to_string() + &String::from("]");
     } else
     //if (!temp_gen_proc_limit.is_empty())
     {
@@ -132,7 +127,7 @@ pub fn get_added_node_info(
         method_body,
     ));
     komodorpcutil::request(SomeUser.clone(), data)
-    }
+}
 
 /**
  * getconnectioncount
@@ -365,7 +360,7 @@ pub fn ping(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
         method_name,
         method_body,
     ));
-   komodorpcutil::request(someUser.clone(), data)
+    komodorpcutil::request(someUser.clone(), data)
 }
 
 /**
@@ -390,20 +385,17 @@ pub fn set_ban(
     absolute: Option<bool>,
 ) -> Result<(), reqwest::Error> {
     let mut method_body: String;
-    method_body = String::from("[\"")
-            + &ip
-            + &String::from("\",\"")
-            + &command
-            + &String::from("\"");
-    if let Some(temp_bantime) = bantime{
-        method_body = method_body + &String::from (",") + &temp_bantime.to_string();
+    method_body =
+        String::from("[\"") + &ip + &String::from("\",\"") + &command + &String::from("\"");
+    if let Some(temp_bantime) = bantime {
+        method_body = method_body + &String::from(",") + &temp_bantime.to_string();
     }
 
-    if let Some(temp_absolute) = absolute{
-        method_body =method_body + &String::from (",") + &temp_absolute.to_string();
+    if let Some(temp_absolute) = absolute {
+        method_body = method_body + &String::from(",") + &temp_absolute.to_string();
     }
 
-    method_body=method_body+&String::from("]");
+    method_body = method_body + &String::from("]");
     let method_name: String = String::from("setban");
     let data: String = String::from(komodorpcutil::generate_body(
         SomeUser.clone(),

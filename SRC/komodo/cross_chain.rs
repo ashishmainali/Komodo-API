@@ -193,10 +193,7 @@ pub fn migrate_create_import_transaction(
     let temp_notary_tx_idN: String = notary_tx_idN.unwrap_or("".to_string());
 
     let mut method_body: String =
-        String::from("[\"") + 
-        &burn_tx.to_string() + 
-        &String::from("\",\"") + 
-        &payouts.to_string();
+        String::from("[\"") + &burn_tx.to_string() + &String::from("\",\"") + &payouts.to_string();
 
     // concatentate string for optional strings
     if !temp_notary_tx_id1.is_empty() {
@@ -485,9 +482,7 @@ pub fn asset_chain_proof(
 ) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("assetchainproof");
 
-    let method_body: String = String::from("[\"") + 
-    &tx_id.to_string() + 
-    &String::from("\"]");
+    let method_body: String = String::from("[\"") + &tx_id.to_string() + &String::from("\"]");
 
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),

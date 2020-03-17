@@ -31,7 +31,6 @@ pub fn get_block_subsidy(
         method_body,
     ));
     komodorpcutil::request(some_user.clone(), data)
-
 }
 /*The getblocktemplate method returns data that is necessary to construct a block.
 If the request parameters include a mode key, it is used to explicitly select between the default 'template' request, a 'proposal' or 'disablecb'.
@@ -160,16 +159,16 @@ pub fn get_network_solps(
     let height = height_supplied.unwrap_or(1);
 
     method_body = String::from("[\"blocks\": \"")
-            + &blocks.to_string()
-            + &String::from(" \", \"height\" : ")
-            + &height.to_string()
-            + &String::from("]");
+        + &blocks.to_string()
+        + &String::from(" \", \"height\" : ")
+        + &height.to_string()
+        + &String::from("]");
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),
         method_name,
         method_body,
     ));
-    
+
     komodorpcutil::request(some_user.clone(), data)
 }
 
@@ -240,7 +239,7 @@ pub fn submit_block(
             + &hexdata.to_string()
             + &String::from(" \", \" ")
             + &workid.to_string()
-            + &String::from ("\"]");
+            + &String::from("\"]");
     }
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),

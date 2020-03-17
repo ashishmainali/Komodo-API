@@ -38,7 +38,7 @@ use super::komodorpcutil;
 ///
 /// * `number_required` - A required u32 that represents the number of required signatures out of the n key(s) or address(es).
 /// * `keys` - A required string that represents a json array of keys which are addresses or hex-encoded public keys.
-/// 
+///
 /// # Response
 ///
 /// * `address` - The value of the new multisig address.

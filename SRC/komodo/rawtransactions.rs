@@ -227,12 +227,12 @@ pub fn get_raw_transaction(
     let method_name: String = String::from("getrawtransaction");
     let method_body: String;
     let verbose = verbose_supplied.unwrap_or(0);
-     method_body = String::from("[\"")
-            + &txid.to_string()
-            + &String::from("\", ")
-            + &verbose.to_string()
-            + &String::from("]");
-   
+    method_body = String::from("[\"")
+        + &txid.to_string()
+        + &String::from("\", ")
+        + &verbose.to_string()
+        + &String::from("]");
+
     let data: String = String::from(komodorpcutil::generate_body(
         some_user.clone(),
         method_name,
