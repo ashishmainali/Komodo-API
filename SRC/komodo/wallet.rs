@@ -46,7 +46,7 @@ use super::komodorpcutil;
 pub fn backup_wallet(
     someUser: komodorpcutil::KomodoRPC,
     destination: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[\"") + &destination + "\"]";
     let method_name: String = String::from("backupwallet");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -67,7 +67,7 @@ pub fn backup_wallet(
 pub fn dump_priv_key(
     someUser: komodorpcutil::KomodoRPC,
     address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[\"") + &address + "\"]";
     let method_name: String = String::from("dumpprivkey");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -89,7 +89,7 @@ pub fn dump_priv_key(
 pub fn dump_wallet(
     someUser: komodorpcutil::KomodoRPC,
     filename: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[\"") + &filename + "\"]";
     let method_name: String = String::from("dumpwallet");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -114,7 +114,7 @@ pub fn dump_wallet(
 pub fn encrypt_wallet(
     someUser: komodorpcutil::KomodoRPC,
     passphrase: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[\"") + &passphrase + "\"]";
     let method_name: String = String::from("encryptwallet");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -134,7 +134,7 @@ pub fn encrypt_wallet(
 pub fn get_account(
     someUser: komodorpcutil::KomodoRPC,
     address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[\"") + &address + "\"]";
     let method_name: String = String::from("getaccount");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -160,7 +160,7 @@ pub fn get_balance(
     SomeUser: komodorpcutil::KomodoRPC,
     minconf: Option<u32>,
     includeWatchonly: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_minconf = minconf.unwrap_or(1); //Default value is 1
     let temp_includeWatchonly: String = includeWatchonly.unwrap_or(false).to_string();
@@ -206,7 +206,7 @@ The getbalance64 method is used only on Smart Chains that are utilizing the ac_s
 /// Name	Type	Description
 /// * "address"	(string)	the new address
 /// %%%
-pub fn get_new_address(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_new_address(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getnewaddress");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -225,7 +225,7 @@ pub fn get_new_address(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest
 /// # Response
 /// * "address"	(string)	the address
 /// %%%
-pub fn get_raw_change_address(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_raw_change_address(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getrawchangeaddress");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -248,7 +248,7 @@ pub fn get_receive_by_address(
     SomeUser: komodorpcutil::KomodoRPC,
     address: String,
     min_conf: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_min_conf: String = min_conf.unwrap_or(1).to_string(); // default 1///TO DO
     if (temp_min_conf.is_empty()) {
@@ -310,7 +310,7 @@ pub fn get_transaction(
     SomeUser: komodorpcutil::KomodoRPC,
     tx_id: String,
     include_watch_only: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_include_watch_only: String = include_watch_only.unwrap_or(false).to_string();
     method_body = String::from("[\"")
@@ -334,7 +334,7 @@ pub fn get_transaction(
 /// # Response
 /// * (none)
 /// %%%
-pub fn get_unconfirmed_balance(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_unconfirmed_balance(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getunconfirmedbalance");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -360,7 +360,7 @@ pub fn get_unconfirmed_balance(SomeUser: komodorpcutil::KomodoRPC) -> Result<(),
 /// * "paytxfee"	(numeric)	the transaction fee configuration, given as the relevant COIN per KB
 /// %%%
 
-pub fn get_wallet_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_wallet_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getwalletinfo");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -388,7 +388,7 @@ pub fn import_address(
     address: String,
     label: Option<String>,
     rescan: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_label: String = label.unwrap_or("".to_string()).to_string();
     let temp_rescan: String = rescan.unwrap_or(true).to_string();
@@ -431,7 +431,7 @@ pub fn import_priv_key(
     priv_key: String,
     label: Option<String>,
     rescan: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_label: String = label.unwrap_or("".to_string()).to_string();
     let temp_rescan: String = rescan.unwrap_or(true).to_string();
@@ -471,7 +471,7 @@ pub fn import_priv_key(
 pub fn import_wallet(
     someUser: komodorpcutil::KomodoRPC,
     file_name: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let params = String::from("[\"") + &file_name + "\"]";
 
     let method_name: String = String::from("importwallet");
@@ -494,7 +494,7 @@ pub fn import_wallet(
 pub fn key_pool_refill(
     SomeUser: komodorpcutil::KomodoRPC,
     new_size: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_new_size: String = new_size.unwrap_or(100).to_string();
     method_body = String::from("[") + &temp_new_size + &String::from("]");
@@ -517,7 +517,7 @@ pub fn key_pool_refill(
 /// * "account"	(string, optional)	(DEPRECATED) the account
 ///  %%%
 
-pub fn list_address_groupings(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn list_address_groupings(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("listaddressgroupings");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -537,7 +537,7 @@ pub fn list_address_groupings(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), 
 /// * "txid"	(string)	the transaction id locked
 /// * "vout"	(numeric)	the vout value
 
-pub fn list_lock_unspent(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn list_lock_unspent(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("listlockunspent");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -568,7 +568,7 @@ pub fn list_received_by_address(
     min_conf: Option<u32>,
     include_empty: Option<bool>,
     include_watch_only: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_min_conf: String = min_conf.unwrap_or(1).to_string();
     let temp_include_empty: String = include_empty.unwrap_or(false).to_string();
@@ -624,7 +624,7 @@ pub fn list_since_block(
     block_hash: Option<String>,
     target_conformations: Option<u32>,
     include_watch_only: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("listsinceblock");
     let temp_block_hash: String = block_hash.unwrap_or("".to_string());
     let temp_target_conformations = target_conformations.unwrap_or(1);
@@ -679,7 +679,7 @@ pub fn list_transactions(
     count: Option<u32>,
     from: Option<u32>,
     include_watch_only: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("listtransactions");
 
     let method_body: String = String::from("[\"")
@@ -722,7 +722,7 @@ pub fn list_unspent(
     minconf: Option<u32>,
     maxconf: Option<u32>,
     address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("listunspent");
 
     let temp_minconf = minconf.unwrap_or(1);
@@ -762,7 +762,7 @@ pub fn lock_unspent(
     unlock: bool,
     txid: String,
     vout: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[")
         + &unlock.to_string()
         + &(",[{\"txid\":\"").to_string()
@@ -789,7 +789,7 @@ pub fn lock_unspent(
 
 pub fn resend_wallet_transactions(
     SomeUser: komodorpcutil::KomodoRPC,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("resendwallettransactions");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -836,7 +836,7 @@ pub fn send_many(
     comment: Option<String>,
     subtract_fee_from_amount: Option<String>,
     address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("sendmany");
     let temp_minconf = minconf.unwrap_or(1);
     let temp_comment: String = comment.unwrap_or("".to_string());
@@ -880,7 +880,7 @@ pub fn send_to_address(
     comment: Option<String>,
     comment_to: Option<String>,
     subtract_fee_from_amount: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("sendtoaddress");
     let temp_comment: String = comment.unwrap_or("".to_string());
     let temp_comment_to: String = comment_to.unwrap_or("".to_string());
@@ -928,7 +928,7 @@ pub fn send_to_address(
 pub fn set_pub_key(
     some_user: komodorpcutil::KomodoRPC,
     pub_key: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("setpubkey");
 
     let method_body: String = String::from("[\"") + &pub_key.to_string() + &String::from("\"]");
@@ -948,7 +948,7 @@ pub fn set_pub_key(
 /// * # Response
 /// * true/false 	(boolean) 	returns true if successful
 /// * %%%
-pub fn set_tx_fee(some_user: komodorpcutil::KomodoRPC, amount: f64) -> Result<(), reqwest::Error> {
+pub fn set_tx_fee(some_user: komodorpcutil::KomodoRPC, amount: f64) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("settxfee");
 
     let method_body: String = String::from("[") + &amount.to_string() + &String::from("]");
@@ -973,7 +973,7 @@ pub fn sign_message(
     some_user: komodorpcutil::KomodoRPC,
     address: String,
     message: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("signmessage");
 
     let method_body: String = String::from("[\"")
@@ -999,7 +999,7 @@ pub fn sign_message(
 /// # Response
 /// * (none)
 
-pub fn wallet_lock(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn wallet_lock(some_user: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("walletlock");
 
     let method_body: String = String::from("[]");
@@ -1027,7 +1027,7 @@ pub fn wallet_pass_phrase(
     some_user: komodorpcutil::KomodoRPC,
     pass_phrase: String,
     timeout: Option<f64>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("walletpassphrase");
 
     let mut method_body: String =
@@ -1060,7 +1060,7 @@ pub fn wallet_pass_phrase_change(
     some_user: komodorpcutil::KomodoRPC,
     old_pass_phrase: String,
     new_pass_phrase: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("walletpassphrasechange");
 
     let method_body: String = String::from("[\"")
@@ -1087,7 +1087,7 @@ pub fn wallet_pass_phrase_change(
 pub fn z_export_key(
     some_user: komodorpcutil::KomodoRPC,
     z_address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_exportkey");
 
     let method_body: String = String::from("[\"") + &z_address.to_string() + &String::from("\"]");
@@ -1112,7 +1112,7 @@ pub fn z_export_key(
 pub fn z_export_viewing_key(
     some_user: komodorpcutil::KomodoRPC,
     z_address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_exportviewingkey");
 
     let method_body: String = String::from("[\"") + &z_address.to_string() + &String::from("\"]");
@@ -1135,7 +1135,7 @@ pub fn z_export_viewing_key(
 pub fn z_export_wallet(
     some_user: komodorpcutil::KomodoRPC,
     file_name: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_exportwallet");
 
     let method_body: String = String::from("[\"") + &file_name.to_string() + &String::from("\"]");
@@ -1160,7 +1160,7 @@ pub fn z_get_balance(
     some_user: komodorpcutil::KomodoRPC,
     address: String,
     minconf: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_getbalance");
     let temp_minconf: String = minconf.unwrap_or(1).to_string();
     let method_body: String = String::from("[\"")
@@ -1183,7 +1183,7 @@ pub fn z_get_balance(
 /// # Response
 /// * "z_address" 	(string) 	the new z_address
 
-pub fn z_get_new_address(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn z_get_new_address(some_user: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_getnewaddress");
 
     let method_body: String = String::from("[]");
@@ -1220,7 +1220,7 @@ pub fn z_get_new_address(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqw
 pub fn z_get_operation_result(
     some_user: komodorpcutil::KomodoRPC,
     operation_id: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_getoperationresult");
 
     let temp_operation_id: String = operation_id.unwrap_or("".to_string());
@@ -1260,7 +1260,7 @@ pub fn z_get_operation_result(
 pub fn z_get_operation_status(
     some_user: komodorpcutil::KomodoRPC,
     operation_id: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_getoperationstatus");
 
     let temp_operation_id: String = operation_id.unwrap_or("".to_string());
@@ -1292,7 +1292,7 @@ pub fn z_get_total_balance(
     some_user: komodorpcutil::KomodoRPC,
     minconf: Option<u32>,
     include_watch_only: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_gettotalbalance");
     let temp_minconf = minconf.unwrap_or(1);
     let temp_include_watch_only = include_watch_only.unwrap_or(false);
@@ -1327,7 +1327,7 @@ pub fn z_import_key(
     z_private_key: String,
     rescan: Option<String>,
     start_height: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_importkey");
     let temp_rescan = rescan.unwrap_or("whenkeyisnew".to_string());
     let temp_start_height = start_height.unwrap_or(0);
@@ -1363,7 +1363,7 @@ pub fn z_import_viewing_key(
     z_private_key: String,
     rescan: Option<String>,
     start_height: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_importviewingkey");
     let temp_rescan = rescan.unwrap_or("whenkeyisnew".to_string());
     let temp_start_height = start_height.unwrap_or(0);
@@ -1394,7 +1394,7 @@ pub fn z_import_viewing_key(
 pub fn z_import_wallet(
     some_user: komodorpcutil::KomodoRPC,
     file_name: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_importwallet");
 
     let method_body: String = String::from("[\"") + &file_name.to_string() + &String::from("\"]");
@@ -1417,7 +1417,7 @@ pub fn z_import_wallet(
 pub fn z_list_addresses(
     some_user: komodorpcutil::KomodoRPC,
     include_watch_only: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_listaddresses");
     let temp_include_watch_only = include_watch_only.unwrap_or(false);
     let method_body: String =
@@ -1443,7 +1443,7 @@ pub fn z_list_addresses(
 pub fn z_list_operation_ids(
     some_user: komodorpcutil::KomodoRPC,
     status: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_listoperationids");
     let temp_status = status.unwrap_or("".to_string());
     let method_body: String = String::from("[") + &temp_status.to_string() + &String::from("]");
@@ -1478,7 +1478,7 @@ pub fn z_list_received_by_address(
     SomeUser: komodorpcutil::KomodoRPC,
     address: String,
     min_conf: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     method_body = String::from("[\"")
         + &address.to_string()
@@ -1527,7 +1527,7 @@ pub fn z_list_unspent(
     include_watch_only: Option<bool>,
     addresses: Vec<String>,
     address: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_listunspent");
     let method_body: String;
 
@@ -1615,7 +1615,7 @@ pub fn z_send_many(
     memo: Option<String>,
     minconf: Option<u32>,
     fee: Option<f32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_sendmany");
     let method_body: String;
     let temp_memo: String = memo.unwrap_or("");
@@ -1665,7 +1665,7 @@ pub fn z_shield_coinbase(
     to_address: String,
     fee: Option<f32>,
     limit: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("z_shieldcoinbase");
     let method_body: String;
     let temp_fee: f32 = fee.unwrap_or(0.0001);
@@ -1703,7 +1703,7 @@ pub fn z_cbenchmark(
     SomeUser: komodorpcutil::KomodoRPC,
     benchmark_type: String,
     sample_count: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("zcbenchmark");
     let method_body: String;
 

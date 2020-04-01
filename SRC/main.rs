@@ -34,7 +34,7 @@ pub fn main() {
 
     //getaddressbalance
 
-    komodo::wallet::send_to_address(
+    let something = komodo::wallet::send_to_address(
         someUser,
         "RKL5sZabVmngF5ueG8hBD1zLFauTqnHFuk".to_string(),
         10.0,
@@ -42,4 +42,11 @@ pub fn main() {
         Some("alfonso".to_string()),
         Some(true),
     );
+    /*let something = komodo::wallet::get_balance(
+        someUser,
+        None,
+        None,
+    );
+    */
+    println!("{:?}",something );
 }

@@ -57,7 +57,7 @@ pub fn create_raw_transaction(
     vout: u32,
     addresses: String,
     address: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("createrawtransaction");
     let method_body: String;
     method_body = String::from("[[{\"txid\":\"")
@@ -129,7 +129,7 @@ pub fn create_raw_transaction(
 pub fn decode_raw_transaction(
     some_user: komodorpcutil::KomodoRPC,
     hex: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("decoderawtransaction");
     let method_body: String;
     method_body = String::from("[\"") + &hex.to_string() + &String::from("\"]");
@@ -165,7 +165,7 @@ pub fn decode_raw_transaction(
 pub fn decode_script(
     some_user: komodorpcutil::KomodoRPC,
     hex: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("decodescript");
     let method_body: String;
     method_body = String::from("[\"") + &hex.to_string() + &String::from("\"]");
@@ -193,7 +193,7 @@ pub fn decode_script(
 pub fn fund_raw_transaction(
     some_user: komodorpcutil::KomodoRPC,
     hexstring: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("fundrawtransaction");
     let method_body: String;
     method_body = String::from("[\"") + &hexstring.to_string() + &String::from("\"]");
@@ -223,7 +223,7 @@ pub fn get_raw_transaction(
     some_user: komodorpcutil::KomodoRPC,
     txid: String,
     verbose_supplied: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getrawtransaction");
     let method_body: String;
     let verbose = verbose_supplied.unwrap_or(0);
@@ -258,7 +258,7 @@ pub fn send_raw_transaction(
     some_user: komodorpcutil::KomodoRPC,
     hexstring: String,
     allow_high_fees_supplied: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("sendrawtransaction");
     let method_body: String;
     let allow_high_fees = allow_high_fees_supplied.unwrap_or(false);
@@ -306,7 +306,7 @@ pub fn send_raw_transaction(
 pub fn sign_raw_transaction(
     some_user: komodorpcutil::KomodoRPC,
     hexstring: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("signrawtransaction");
     let method_body: String;
     //let allow_high_fees = allow_high_fees_supplied.unwrap_or(false);

@@ -16,7 +16,7 @@ Name	    Type     	        Description
 pub fn get_block_subsidy(
     some_user: komodorpcutil::KomodoRPC,
     height_supplied: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getblocksubsidy");
     let method_body: String;
     let height = height_supplied.unwrap_or(0);
@@ -47,7 +47,7 @@ pub fn get_block_template(
     mode_supplied: Option<String>,
     capabilities: Vec<String>,
     support: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getblocktemplate");
     let method_body: String;
     let mode = mode_supplied.unwrap_or("".to_string());
@@ -94,7 +94,7 @@ Name	    Type     	        Description
 "data" 	    (u32)	            the solutions-per-second average
 */
 
-pub fn get_local_solps(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_local_solps(some_user: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getlocalsolps");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -124,7 +124,7 @@ Name	            Type     	        Description
 "chain"	            (string)	        the current network name as defined in BIP70 (main, test, regtest)
 */
 
-pub fn get_mining_info(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_mining_info(some_user: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getmininginfo");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -152,7 +152,7 @@ pub fn get_network_solps(
     some_user: komodorpcutil::KomodoRPC,
     blocks_supplied: Option<u32>,
     height_supplied: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getnetworksolps");
     let method_body: String;
     let blocks = blocks_supplied.unwrap_or(120);
@@ -191,7 +191,7 @@ pub fn prioritise_transaction(
     transaction_id: String,
     priority_delta: u32,
     fee_delta: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("prioritisetransaction");
     let method_body: String;
     method_body = String::from("[\"")
@@ -228,7 +228,7 @@ pub fn submit_block(
     some_user: komodorpcutil::KomodoRPC,
     hexdata: String,
     workid_supplied: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let workid = workid_supplied.unwrap_or("".to_string());
     let method_name: String = String::from("submitblock");
     let method_body: String;

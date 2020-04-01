@@ -42,7 +42,7 @@ use std::any::Any;
 pub fn coin_supply(
     some_user: komodorpcutil::KomodoRPC,
     height_supplied: Option<u32>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("coinsupply");
     let method_body: String;
 
@@ -66,7 +66,7 @@ pub fn coin_supply(
 /// * `(none)`
 /// # Response
 /// * `hex`	(string)	the block hash, hex encoded
-pub fn get_best_block_hash(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_best_block_hash(some_user: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getbestblockhash");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -108,7 +108,7 @@ pub fn get_block(
     SomeUser: komodorpcutil::KomodoRPC,
     height_or_hash: String,
     verbose: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let temp_verbose: bool = verbose.unwrap_or(false);
     let method_name: String = String::from("getblock");
     let method_body: String;
@@ -162,7 +162,7 @@ pub fn get_block(
 /// * `chaintip`	(string)	branch ID used to validate the current chain tip
 /// * `nextblock`	(string)	branch ID under which the next block will be validated
 /// %%%
-pub fn get_blockchain_info(some_user: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_blockchain_info(some_user: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getblockchaininfo");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -182,7 +182,7 @@ pub fn get_blockchain_info(some_user: komodorpcutil::KomodoRPC) -> Result<(), re
 /// data	(numeric)	the current block count
 /// %%%
 
-pub fn get_block_count(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_block_count(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getblockcount");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -201,7 +201,7 @@ pub fn get_block_count(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest
 pub fn get_block_hash(
     SomeUser: komodorpcutil::KomodoRPC,
     index: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getblockckhash");
     let method_body: String = String::from(format!("[{:?}]", index));
     let data: String = String::from(komodorpcutil::generate_body(
@@ -232,7 +232,7 @@ pub fn get_block_hashes(
     low: u32,
     no_orphans: bool,
     logical_times: bool,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_no_orphans: String;
     let temp_logical_times: String;
@@ -307,7 +307,7 @@ pub fn get_block_header(
     SomeUser: komodorpcutil::KomodoRPC,
     hash: String,
     verbose: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     /*
     Arguments
     Name	Type	Description
@@ -348,7 +348,7 @@ pub fn get_block_header(
 /// *`branchlen`	(numeric)	the length of the branch connecting the tip to the main chain
 /// *`status`	(string)	the status of the chain
 /// %%%
-pub fn get_chain_tips(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_chain_tips(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getchaintips");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -378,7 +378,7 @@ pub fn get_chain_tx_stats(
     SomeUser: komodorpcutil::KomodoRPC,
     n_blocks: Option<u32>,
     block_hash: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_nblocks = n_blocks.unwrap_or(0); //Default value is 0
     let temp_block_hash: String = block_hash.unwrap_or("".to_string());
@@ -413,7 +413,7 @@ pub fn get_chain_tx_stats(
 /// # Response
 /// * `number`	(numeric)	the proof-of-work difficulty as a multiple of the minimum difficulty
 /// %%%
-pub fn get_difficulty(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_difficulty(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getdifficulty");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -439,7 +439,7 @@ pub fn get_difficulty(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest:
 pub fn get_last_segid_stakes(
     SomeUser: komodorpcutil::KomodoRPC,
     depth: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getlastsegidstakes");
     let method_body: String = String::from(format!("[{}]", depth));
     let data: String = String::from(komodorpcutil::generate_body(
@@ -460,7 +460,7 @@ pub fn get_last_segid_stakes(
 /// * `bytes`	(numeric)	the sum of all transaction sizes
 /// * `usage`	(numeric)	the total memory usage for the mempool
 /// %%%
-pub fn get_mempool_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_mempool_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("getmempoolinfo");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -494,7 +494,7 @@ pub fn get_mempool_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwes
 pub fn get_raw_mempool(
     SomeUser: komodorpcutil::KomodoRPC,
     verbose: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let temp_verbose: bool = verbose.unwrap_or(false);
     let method_name: String = String::from("getrawmempool");
 
@@ -526,7 +526,7 @@ pub fn get_spent_info(
     SomeUser: komodorpcutil::KomodoRPC,
     tx_id: String,
     index: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     method_body = String::from("[\"txid\": \"")
         + &tx_id.to_string()
@@ -566,7 +566,7 @@ pub fn get_tx_out(
     tx_id: String,
     vout: u32,
     include_mempool: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     if let Some(x) = include_mempool {
         method_body = String::from("[\"")
@@ -603,7 +603,7 @@ pub fn get_tx_out_proof(
     SomeUser: komodorpcutil::KomodoRPC,
     tx_id: String,
     block_hash: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let temp_block_hash: String = block_hash.unwrap_or("".to_string());
     let method_body: String;
     if (!temp_block_hash.is_empty()) {
@@ -636,7 +636,7 @@ pub fn get_tx_out_proof(
 /// * `bytes_serialized`	(numeric)	the serialized size
 /// * `hash_serialized`	(string)	the serialized hash
 /// * `total_amount`	(numeric)	the total amount
-pub fn tx_out_set_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn tx_out_set_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("gettxoutsetinfo");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -663,7 +663,7 @@ pub fn tx_out_set_info(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest
 /// * `flags`	(numeric)	1 if the key was created with a password; 0 otherwise
 /// * `value`	(string)	the stored value
 /// * `valuesize`	(string)	the amount of characters stored
-pub fn kv_search(SomeUser: komodorpcutil::KomodoRPC, key: String) -> Result<(), reqwest::Error> {
+pub fn kv_search(SomeUser: komodorpcutil::KomodoRPC, key: String) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("kvsearch");
     let method_body: String = String::from("[\"") + &key.to_string() + &String::from("\"]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -701,7 +701,7 @@ pub fn kv_update(
     value: String,
     days: u32,
     pass_phrase: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("kvupdate");
     let method_body: String;
     let temp_pass_phrase: String = pass_phrase.unwrap_or("".to_string());
@@ -743,7 +743,7 @@ pub fn kv_update(
 /// * `pubkey`	(string)	the public signing key of the notary node
 /// * `blocks`	(number)
 /// %%%
-pub fn miner_ids(SomeUser: komodorpcutil::KomodoRPC, height: u32) -> Result<(), reqwest::Error> {
+pub fn miner_ids(SomeUser: komodorpcutil::KomodoRPC, height: u32) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("minerids");
     let method_body: String = String::from(format!("[\"{:?}\"]", height));
     let data: String = String::from(komodorpcutil::generate_body(
@@ -773,7 +773,7 @@ pub fn notaries(
     SomeUser: komodorpcutil::KomodoRPC,
     height: u32,
     timestamp: u32,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     //????? TODO Review this method again ??????
     // what happens when two parameters are sent together
     // Do we need to name the paramater too?
@@ -807,7 +807,7 @@ pub fn verify_chain(
     SomeUser: komodorpcutil::KomodoRPC,
     check_level: Option<u8>,
     num_blocks: Option<u16>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let temp_check_level: u8 = check_level.unwrap_or(3);
     let temp_num_blocks: u16 = num_blocks.unwrap_or(288);
     let method_name: String = String::from("verifychain");
@@ -837,7 +837,7 @@ pub fn verify_chain(
 pub fn verify_tx_out_proof(
     SomeUser: komodorpcutil::KomodoRPC,
     proof_string: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("verifytxoutproof");
     let method_body: String =
         String::from("[\"") + &proof_string.to_string() + &String::from("\"]");

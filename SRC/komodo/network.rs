@@ -20,7 +20,7 @@ pub fn add_node(
     someUser: komodorpcutil::KomodoRPC,
     node: String,
     command: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body =
         String::from("[\"") + &node + &String::from("\", \"") + &command + &String::from("\"]");
     let method_name: String = String::from("addnode");
@@ -45,7 +45,7 @@ Name	Type	Description
 Name	Type	Description
 (none)
  */
-pub fn clear_banned(SomeUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn clear_banned(SomeUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let method_name: String = String::from("clearbanned");
     let method_body: String = String::from("[]");
     let data: String = String::from(komodorpcutil::generate_body(
@@ -73,7 +73,7 @@ Name	Type	Description
 pub fn disconnect_node(
     someUser: komodorpcutil::KomodoRPC,
     node: String,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body = String::from("[\"") + &node + "\"]"; // String::from(format!("[/"{0}/"]",temp_top));
 
     let method_name: String = String::from("disconnectnode");
@@ -105,7 +105,7 @@ pub fn get_added_node_info(
     SomeUser: komodorpcutil::KomodoRPC,
     dns: bool,
     node: Option<String>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let method_body: String;
     let temp_node: String = node.unwrap_or("".to_string()); // default -1///TO DO
     if (temp_node.is_empty()) {
@@ -143,7 +143,7 @@ Name	Type	Description
 n	(numeric)	the connection count
  */
 
-pub fn get_connection_count(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_connection_count(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("getconnectioncount");
@@ -174,7 +174,7 @@ Name	Type	Description
 "deprecationheight"	(numeric)	the block height at which this version will deprecate and shut down (unless disabledeprecation is set)
  */
 
-pub fn get_deprecation_info(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_deprecation_info(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("getdeprecationinfo");
@@ -203,7 +203,7 @@ Name	Type	Description
 "timemillis"	(numeric)	total cpu time
  */
 
-pub fn get_net_totals(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_net_totals(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("getnettotals");
@@ -246,7 +246,7 @@ Name	Type	Description
 "warnings"	(string)	any network warnings (such as alert messages)
  */
 
-pub fn get_network_info(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_network_info(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("getnetworkinfo");
@@ -292,7 +292,7 @@ Name	Type	Description
 number	(numeric)	the block height requested from this peer
  */
 
-pub fn get_peer_info(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn get_peer_info(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("getpeerinfo");
@@ -318,7 +318,7 @@ Name	Type	Description
 "banned_until"	(numeric)	the timestamp, at which point the ban will be removed
  */
 
-pub fn list_banned(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn list_banned(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("listbanned");
@@ -350,7 +350,7 @@ Name	Type	Description
 (none)
 
  */
-pub fn ping(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
+pub fn ping(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("ping");
@@ -383,7 +383,7 @@ pub fn set_ban(
     command: String,
     bantime: Option<u32>,
     absolute: Option<bool>,
-) -> Result<(), reqwest::Error> {
+) -> Result<String, reqwest::Error> {
     let mut method_body: String;
     method_body =
         String::from("[\"") + &ip + &String::from("\",\"") + &command + &String::from("\"");
