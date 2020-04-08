@@ -19,7 +19,7 @@ Name	    Type	     Description
 pub fn get_address_balance(
     someUser: komodorpcutil::KomodoRPC,
     v_address: Vec<String>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     // implement for vec of addrs
     let mut addr_list = String::from("[");
     for addr in &v_address {
@@ -78,7 +78,7 @@ pub fn get_address_deltas(
     start: u32,
     end: u32,
     chainInfo: bool,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let mut addr_list = String::from("[");
 
     for addr in &v_address {
@@ -138,7 +138,7 @@ Name	    Type     	Description
 pub fn get_address_mem_pool(
     someUser: komodorpcutil::KomodoRPC,
     v_address: Vec<String>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let mut addr_list = String::from("[");
 
     for addr in &v_address {
@@ -190,7 +190,7 @@ pub fn get_address_tx_ids(
     v_address: Vec<String>,
     start: u32,
     end: u32,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let mut addr_list = String::from("[");
 
     for addr in &v_address {
@@ -252,7 +252,7 @@ pub fn get_address_utxos(
     someUser: komodorpcutil::KomodoRPC,
     v_address: Vec<String>,
     chainInfo: bool,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let mut addr_list = String::from("[");
 
     for addr in &v_address {
@@ -314,7 +314,7 @@ Name	            Type            	Description
 pub fn get_snapshot(
     someUser: komodorpcutil::KomodoRPC,
     top: Option<u32>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     //TODO: need to implement optinal arg
     let method_body: String;
     let temp_top = top.unwrap_or(0); //Default value is 0

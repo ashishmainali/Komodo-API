@@ -18,7 +18,7 @@ Name	Type	Description
 blockhashes	(array)	hashes of blocks generated
  */
 
-pub fn generate(someUser: komodorpcutil::KomodoRPC, numblocks: u32) -> Result<String, reqwest::Error> {
+pub fn generate(someUser: komodorpcutil::KomodoRPC, numblocks: u32) -> Result<(), reqwest::Error> {
     ///THE DOCUMENTATION IN DOCS.KOMODOPLATFORM.COM IS INCOMPLETE
     let params = String::from("[") + &numblocks.to_string() + "]";
 
@@ -48,7 +48,7 @@ Name	Type	Description
 Name	Type	Description
 true/false	(boolean)	indicates whether the server is set to generate coins
   */
-pub fn get_generate(someUser: komodorpcutil::KomodoRPC) -> Result<String, reqwest::Error> {
+pub fn get_generate(someUser: komodorpcutil::KomodoRPC) -> Result<(), reqwest::Error> {
     let params = String::from("[]");
 
     let method_name: String = String::from("getgenerate");
@@ -84,7 +84,7 @@ pub fn set_generate(
     SomeUser: komodorpcutil::KomodoRPC,
     generate: bool,
     gen_proc_limit: Option<u32>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_body: String;
     let temp_gen_proc_limit: String = gen_proc_limit.unwrap_or(1).to_string(); // default -1///TO DO
     if (temp_gen_proc_limit.is_empty()) {
@@ -111,7 +111,7 @@ pub fn set_generate(
 pub fn set_staking_split(
     someUser: komodorpcutil::KomodoRPC,
     split_percentage: f64,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     ///THE DOCUMENTATION IN DOCS.KOMODOPLATFORM.COM IS INCOMPLETE
     let params = String::from("[") + &split_percentage.to_string() + "]";
 

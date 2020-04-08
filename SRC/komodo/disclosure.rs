@@ -28,7 +28,7 @@ pub fn z_get_payment_disclosure(
     js_index: String,
     output_index: String,
     message: Option<String>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_body: String;
     let temp_message = message.unwrap_or("".to_string()); //Default value is 0
     if (!temp_message.is_empty()) {
@@ -79,7 +79,7 @@ Name	Type	Description
 pub fn z_validate_payment_disclosure(
     someUser: komodorpcutil::KomodoRPC,
     paymentdisclosure: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let params = String::from("[\"") + &paymentdisclosure + "\"]"; // String::from(format!("[/"{0}/"]",temp_top));
 
     let method_name: String = String::from("z_validatepaymentdisclosure");

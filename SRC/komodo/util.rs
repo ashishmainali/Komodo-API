@@ -59,7 +59,7 @@ pub fn create_multisig(
     some_user: komodorpcutil::KomodoRPC,
     number_required: u32,
     keys: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("createmultisig");
 
     let method_body: String = String::from("[")
@@ -95,7 +95,7 @@ pub fn create_multisig(
 pub fn decode_ccopret(
     some_user: komodorpcutil::KomodoRPC,
     script_pub_key: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("decodeccopret");
 
     let method_body: String =
@@ -125,7 +125,7 @@ pub fn decode_ccopret(
 pub fn estimate_fee(
     some_user: komodorpcutil::KomodoRPC,
     n_blocks: u32,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("estimatefee");
 
     let method_body: String = String::from("[") + &n_blocks.to_string() + &String::from("]");
@@ -154,7 +154,7 @@ pub fn estimate_fee(
 pub fn estimate_priority(
     some_user: komodorpcutil::KomodoRPC,
     n_blocks: u32,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("estimatepriority");
 
     let method_body: String = String::from("[") + &n_blocks.to_string() + &String::from("]");
@@ -182,7 +182,7 @@ pub fn estimate_priority(
 pub fn invalidate_block(
     some_user: komodorpcutil::KomodoRPC,
     hash: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("invalidateblock");
 
     let method_body: String = String::from("[\"") + &hash.to_string() + &String::from("\"]");
@@ -210,7 +210,7 @@ pub fn invalidate_block(
 pub fn reconsider_block(
     some_user: komodorpcutil::KomodoRPC,
     hash: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("reconsiderblock");
 
     let method_body: String = String::from("[\"") + &hash.to_string() + &String::from("\"]");
@@ -240,7 +240,7 @@ pub fn reconsider_block(
 pub fn tx_notarized_confirmed(
     some_user: komodorpcutil::KomodoRPC,
     tx_id: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("txnotarizedconfirmed");
 
     let method_body: String = String::from("[\"") + &tx_id.to_string() + &String::from("\"]");
@@ -275,7 +275,7 @@ pub fn tx_notarized_confirmed(
 pub fn validate_address(
     some_user: komodorpcutil::KomodoRPC,
     address: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("validateaddress");
 
     let method_body: String = String::from("[\"") + &address.to_string() + &String::from("\"]");
@@ -307,7 +307,7 @@ pub fn verify_message(
     address: String,
     signature: String,
     message: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("verifymessage");
 
     let method_body: String = String::from("[\"")
@@ -345,7 +345,7 @@ pub fn verify_message(
 pub fn z_validate_address(
     some_user: komodorpcutil::KomodoRPC,
     z_addr: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("z_validateaddress");
 
     let method_body: String = String::from("[\"") + &z_addr.to_string() + &String::from("\"]");

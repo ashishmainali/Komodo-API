@@ -76,7 +76,7 @@ pub fn migrate_create_burn_transaction(
     dest_address: String,
     amount: f64,
     token_id: Option<String>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("migrate_createburntransaction");
     let method_body: String;
     let temp_token_id: String = token_id.unwrap_or("".to_string());
@@ -143,7 +143,7 @@ pub fn migrate_convert_to_export(
     some_user: komodorpcutil::KomodoRPC,
     burn_tx: String,
     dest_chain: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("migrate_converttoexport");
     //let method_body = format!("[\"{0}\",\"{1}\"]", burn_tx, dest_chain);
     let method_body: String = String::from("[\"")
@@ -187,7 +187,7 @@ pub fn migrate_create_import_transaction(
     payouts: String,
     notary_tx_id1: Option<String>,
     notary_tx_idN: Option<String>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("migrate_createimporttransaction");
     let temp_notary_tx_id1: String = notary_tx_id1.unwrap_or("".to_string());
     let temp_notary_tx_idN: String = notary_tx_idN.unwrap_or("".to_string());
@@ -242,7 +242,7 @@ pub fn migrate_complete_import_transaction(
     some_user: komodorpcutil::KomodoRPC,
     import_tx: String,
     offset: Option<String>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("migrate_completeimporttransaction");
     let temp_offset: String = offset.unwrap_or("".to_string());
     let mut method_body: String = String::from("[\"") + &import_tx.to_string();
@@ -280,7 +280,7 @@ pub fn migrate_complete_import_transaction(
 pub fn migrate_check_burn_transaction_source(
     some_user: komodorpcutil::KomodoRPC,
     burn_tx_id: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("migrate_checkburntransactionsource");
 
     let method_body: String = String::from("[\"") + &burn_tx_id.to_string() + &String::from("\"]");
@@ -312,7 +312,7 @@ pub fn migrate_create_notary_approval_transaction(
     some_user: komodorpcutil::KomodoRPC,
     burn_tx_id: String,
     tx_out_proof: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("migrate_createnotaryapprovaltransaction");
 
     let method_body: String = String::from("[\"")
@@ -359,7 +359,7 @@ pub fn self_import(
     some_user: komodorpcutil::KomodoRPC,
     dest_address: String,
     amount: f64,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("selfimport");
 
     let method_body: String = String::from("[\"")
@@ -400,7 +400,7 @@ pub fn calc_MoM(
     some_user: komodorpcutil::KomodoRPC,
     height: u32,
     MoM_depth: u32,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("calc_MoM");
 
     let method_body: String = String::from("[\"")
@@ -445,7 +445,7 @@ pub fn MoMoM_data(
     symbol: String,
     kmd_height: u32,
     cc_id: u32,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("MoMoMdata");
 
     let method_body: String = String::from("[\"")
@@ -479,7 +479,7 @@ pub fn MoMoM_data(
 pub fn asset_chain_proof(
     some_user: komodorpcutil::KomodoRPC,
     tx_id: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("assetchainproof");
 
     let method_body: String = String::from("[\"") + &tx_id.to_string() + &String::from("\"]");
@@ -516,7 +516,7 @@ pub fn asset_chain_proof(
 pub fn get_notarisations_for_block(
     some_user: komodorpcutil::KomodoRPC,
     height: u32,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("getNotarisationsForBlock");
 
     let method_body: String = String::from("[") + &height.to_string() + &String::from("]");
@@ -551,7 +551,7 @@ pub fn scan_notarisations_db(
     block_height: u32,
     symbol: String,
     blocks_limit: Option<u32>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("scanNotarisationsDB");
     let temp_blocks_limit: String = blocks_limit.unwrap_or(0).to_string();
     let mut method_body: String = String::from("[\"")
@@ -602,7 +602,7 @@ pub fn scan_notarisations_db(
 pub fn get_imports(
     some_user: komodorpcutil::KomodoRPC,
     hash_or_height: String,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("getimports");
     let method_body: String =
         String::from("[\"") + &hash_or_height.to_string() + &String::from("\"]");
@@ -634,7 +634,7 @@ pub fn get_imports(
 pub fn get_wallet_burn_transactions(
     some_user: komodorpcutil::KomodoRPC,
     count: Option<u32>,
-) -> Result<String, reqwest::Error> {
+) -> Result<(), reqwest::Error> {
     let method_name: String = String::from("getwalletburntransactions");
     let temp_count = count.unwrap_or(10);
     let method_body: String = String::from("[\"") + &temp_count.to_string() + &String::from("\"]");
