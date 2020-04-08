@@ -6,6 +6,7 @@ mod komodorpcutil;
 use komodorpcutil::KomodoRPC;
 
 pub fn main() {
+	//creating a user
     let someAddress = String::from("127.0.0.1");
     let somePortNum = 13211;
     let someReqMethod = String::from("POST");
@@ -15,7 +16,7 @@ pub fn main() {
     let someJSONRPCVer = String::from("1.0");
     let someRPCReqID = String::from("curltest");
 
-    // CHECK TO SEE IF THERE IS USERNAME IS EMPTY???? TODO
+
 
     // Create KomodoRPC type (an 'object') with variables
     let someUser = KomodoRPC::new(

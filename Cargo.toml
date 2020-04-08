@@ -1,10 +1,14 @@
 [package]
-name = "rust-api"
+name = "komodo"
 version = "0.1.0"
-authors = ["sudip ghale <alliswell.sudip@gmail.com>"]
-edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Komodo Blockchain RPC API"
+keywords = ["blockchain", "api", "komodo"]
+categories = ["komodoblockchain::http-client", "api"]
+repository = "https://github.com/seanmonstar/reqwest"
+documentation = "https://docs.rs/reqwest"
+authors = ["Ashish Mainali <ashish.mainali@mavs.uta.edu>"]
+license = "MIT/Apache-2.0"
+autotests = false
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
